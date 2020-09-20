@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class EditPage extends StatefulWidget {
   @override
@@ -7,6 +8,9 @@ class EditPage extends StatefulWidget {
 
 class _EditPageState extends State<EditPage> {
   String inputScore;
+  String studentName;
+  bool _validate = false;
+  var _nameTextFieldController = TextEditingController();
 
   @override
   void initState() {
@@ -38,7 +42,9 @@ class _EditPageState extends State<EditPage> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: TextFormField(
-                      decoration: const InputDecoration(
+                      controller: _nameTextFieldController,
+                      decoration: InputDecoration(
+                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
                         icon: Text(
                           "Name",
                           style: TextStyle(fontSize: 40),
@@ -195,7 +201,24 @@ class _EditPageState extends State<EditPage> {
                             Container(
                                 child: RaisedButton(
                                     onPressed: () {
-                                      ///
+                                      setState(() {
+                                        _nameTextFieldController.text.isEmpty
+                                            ? _validate = true
+                                            : _validate = false;
+                                      });
+                                      _validate
+                                          ? Fluttertoast.showToast(
+                                              msg: 'Name can not empty',
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0)
+                                          : Navigator.pop((context), {
+                                              'score': inputScore,
+                                              'name':
+                                                  _nameTextFieldController.text
+                                            });
                                     },
                                     child: Text(
                                       "OK",

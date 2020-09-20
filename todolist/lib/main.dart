@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(color: Colors.grey)
+      ),
       routes: {
         Routes.edit_page: (context) => EditPage()
       },
