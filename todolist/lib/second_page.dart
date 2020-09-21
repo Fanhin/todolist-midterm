@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'edit_page.dart';
+
 class SecondPage extends StatefulWidget {
   final Map stdList;
   int index;
-
   final List<Map> stdListAll;
   List<Map> stdListSorted;
 
@@ -46,6 +47,17 @@ class _SecondPageState extends State<SecondPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Second Page"),
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => EditPage()));
+                  },
+                  child: Icon(Icons.edit),
+                ))
+          ],
         ),
         body: Container(
           child: Column(
@@ -127,7 +139,4 @@ class _SecondPageState extends State<SecondPage> {
               ]),
         ));
   }
-
-  
-
 }
