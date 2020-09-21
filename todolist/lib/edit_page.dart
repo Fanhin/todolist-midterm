@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class EditPage extends StatefulWidget {
+  final Map stdList;
+
+  EditPage({this.stdList});
   @override
   _EditPageState createState() => _EditPageState();
 }
@@ -10,11 +13,15 @@ class _EditPageState extends State<EditPage> {
   String inputScore;
   String studentName;
   bool _validate = false;
-  var _nameTextFieldController = TextEditingController();
+  TextEditingController _nameTextFieldController;
 
   @override
   void initState() {
-    inputScore = '0';
+    _nameTextFieldController = TextEditingController();
+    if (widget.stdList != null) {
+      inputScore = widget.stdList['score'];
+    } else
+      inputScore = '0';
     super.initState();
   }
 
@@ -26,6 +33,23 @@ class _EditPageState extends State<EditPage> {
       } else
         inputScore += score;
     });
+  }
+
+  Widget showEditData() {
+    if (widget.stdList['name'] != null) {
+      _nameTextFieldController.text = widget.stdList['name'];
+    }
+
+    return TextFormField(
+      controller: _nameTextFieldController,
+      decoration: InputDecoration(
+        errorText: _validate ? 'Value Can\'t Be Empty' : null,
+        icon: Text(
+          "Name",
+          style: TextStyle(fontSize: 40),
+        ),
+      ),
+    );
   }
 
   @override
@@ -41,16 +65,7 @@ class _EditPageState extends State<EditPage> {
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 20, 30, 10),
-                    child: TextFormField(
-                      controller: _nameTextFieldController,
-                      decoration: InputDecoration(
-                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                        icon: Text(
-                          "Name",
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
+                    child: showEditData(),
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
@@ -99,13 +114,11 @@ class _EditPageState extends State<EditPage> {
                             ]),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
+                          children: <Widget>[
                             Container(
                                 child: RaisedButton(
                                     onPressed: () {
                                       setScore('4');
-
-                                      ///
                                     },
                                     child: Container(
                                         child: Text(
@@ -115,8 +128,6 @@ class _EditPageState extends State<EditPage> {
                                 child: RaisedButton(
                                     onPressed: () {
                                       setScore('5');
-
-                                      ///
                                     },
                                     child: Container(
                                         child: Text(
@@ -126,8 +137,6 @@ class _EditPageState extends State<EditPage> {
                                 child: RaisedButton(
                                     onPressed: () {
                                       setScore('6');
-
-                                      ///
                                     },
                                     child: Container(
                                         child: Text(
@@ -137,13 +146,11 @@ class _EditPageState extends State<EditPage> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
+                          children: <Widget>[
                             Container(
                                 child: RaisedButton(
                                     onPressed: () {
                                       setScore('1');
-
-                                      ///
                                     },
                                     child: Container(
                                         child: Text(
@@ -153,8 +160,6 @@ class _EditPageState extends State<EditPage> {
                                 child: RaisedButton(
                                     onPressed: () {
                                       setScore('2');
-
-                                      ///
                                     },
                                     child: Container(
                                         child: Text(
@@ -164,8 +169,6 @@ class _EditPageState extends State<EditPage> {
                                 child: RaisedButton(
                                     onPressed: () {
                                       setScore('3');
-
-                                      ///
                                     },
                                     child: Container(
                                         child: Text(
@@ -175,15 +178,13 @@ class _EditPageState extends State<EditPage> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
+                          children: <Widget>[
                             Container(
                                 child: RaisedButton(
                                     onPressed: () {
                                       setState(() {
                                         inputScore = '0';
                                       });
-
-                                      ///
                                     },
                                     child: Text(
                                       "CLR",
@@ -192,8 +193,6 @@ class _EditPageState extends State<EditPage> {
                                 child: RaisedButton(
                                     onPressed: () {
                                       setScore('0');
-
-                                      ///
                                     },
                                     child: Text(
                                       "0",

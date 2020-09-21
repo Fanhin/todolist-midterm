@@ -53,7 +53,7 @@ class _SecondPageState extends State<SecondPage> {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EditPage()));
+                        MaterialPageRoute(builder: (context) => EditPage(stdList: widget.stdList,)));
                   },
                   child: Icon(Icons.edit),
                 ))
