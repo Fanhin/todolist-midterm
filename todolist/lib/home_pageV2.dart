@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/config/routes.dart';
-import 'package:todolist/studentList.dart';
+import 'package:todolist/second_page.dart';
 
 import 'edit_page.dart';
 
@@ -11,10 +10,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Map> stdList = [
-    {"name": "JJ", "score": "80"},
-    {"name": "Poon", "score": "77"},
-    {"name": "Geng", "score": "85"},
-    {"name": "John", "score": "60"},
+    {"id":"1","name": "JJ", "score": "80"},
+    {"id":"2","name": "Poon", "score": "77"},
+    {"id":"3","name": "Geng", "score": "85"},
+    {"id":"4","name": "John", "score": "60"},
   ];
 
   @override
@@ -32,44 +31,56 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   //padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
                   height: MediaQuery.of(context).size.height,
-                  child: ListView.builder(
-                    itemCount: stdList.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 90,
-                        child: Card(
-                          //color: Colors.grey[800],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          elevation: 8,
+                  child: Container(
+                    child: ListView.builder(
+                      itemCount: stdList.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SecondPage(stdList[index], index,stdList)));
+                          },
                           child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text('i'),
+                            height: 90,
+                            child: Card(
+                              //color: Colors.grey[800],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              elevation: 8,
+                              child: Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Text((index+1).toString()),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        '${stdList[index]['name']}',
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                      child: Text(
+                                        '${stdList[index]['score']}',
+                                        style: TextStyle(fontSize: 30),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  child: Text(
-                                    '${stdList[index]['name']}',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                                  child: Text(
-                                    '${stdList[index]['score']}',
-                                    style: TextStyle(fontSize: 30),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
