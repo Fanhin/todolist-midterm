@@ -42,11 +42,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 MaterialPageRoute(
                                     builder: (context) => SecondPage(
                                         stdList[index], index, stdList)));
-                            setState(() {
-                              stdList[index]['name'] = result['name'];
-                              stdList[index]['score'] = result['score'];
-                              print(result);
-                            });
+                            if (result != null) {
+                              setState(() {
+                                stdList[index]['name'] = result['name'];
+                                stdList[index]['score'] = result['score'];
+                                print(result);
+                              });
+                            }
                           },
                           child: Container(
                             height: 90,
@@ -57,13 +59,24 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               elevation: 8,
                               child: Container(
+                                color: Colors.primaries[index % Colors.primaries.length],
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Container(
                                       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.amber,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: Colors.amber,width: 8),
+                                        
+                                      ),
                                       child: Text((index + 1).toString()),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text('ID :'+(index + 1).toString()),
                                     ),
                                     Container(
                                       child: Text(

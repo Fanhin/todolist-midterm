@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
       theme: ThemeData(
         appBarTheme: AppBarTheme(color: Colors.grey)
+        
       ),
       routes: {
         Routes.edit_page: (context) => EditPage(),
