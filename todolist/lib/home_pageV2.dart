@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/config/routes.dart';
 import 'package:todolist/second_page.dart';
 
 import 'edit_page.dart';
@@ -20,8 +21,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        title: Text('My List Home Page V2'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0),
+        child: AppBar(
+          title: Text(
+            'My List',
+            style: TextStyle(fontSize: 45),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -53,13 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Container(
                             height: 90,
                             child: Card(
-                              //color: Colors.grey[800],
+                              color: Colors
+                                  .primaries[index % Colors.primaries.length]
+                                  .withOpacity(0.8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               elevation: 8,
                               child: Container(
-                                color: Colors.primaries[index % Colors.primaries.length],
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -69,21 +77,22 @@ class _MyHomePageState extends State<MyHomePage> {
                                       decoration: BoxDecoration(
                                         color: Colors.amber,
                                         shape: BoxShape.circle,
-                                        border: Border.all(color: Colors.amber,width: 8),
-                                        
+                                        border: Border.all(
+                                            color: Colors.amber, width: 8),
                                       ),
                                       child: Text((index + 1).toString()),
                                     ),
                                     Container(
                                       margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                      child: Text('ID :'+(index + 1).toString()),
-                                    ),
-                                    Container(
                                       child: Text(
-                                        '${stdList[index]['name']}',
-                                        style: TextStyle(fontSize: 15),
+                                        'ID :' + (index + 1).toString(),
                                       ),
                                     ),
+                                    Container(
+                                        child: Text(
+                                      '${stdList[index]['name']}',
+                                      style: TextStyle(fontSize: 15),
+                                    )),
                                     Container(
                                       margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                       child: Text(
@@ -110,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           Map data = await Navigator.push(
               context, MaterialPageRoute(builder: (context) => EditPage()));
+          //Navigator.pushNamed(context, Routes.edit_page);
           if (data != null) {
             setState(() {
               stdList.add({'name': data['name'], 'score': data['score']});

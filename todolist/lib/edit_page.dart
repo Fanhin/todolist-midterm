@@ -39,9 +39,11 @@ class _EditPageState extends State<EditPage> {
   }
 
   Widget showEditData() {
-    if (widget.stdList['name'] == showName && editflag) {
-      _nameTextFieldController.text = showName;
-      editflag = false;
+    if (widget.stdList != null) {
+      if (widget.stdList['name'] == showName && editflag) {
+        _nameTextFieldController.text = showName;
+        editflag = false;
+      }
     }
     return TextFormField(
       controller: _nameTextFieldController,

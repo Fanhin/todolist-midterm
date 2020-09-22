@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'edit_page.dart';
 
@@ -46,7 +47,7 @@ class _SecondPageState extends State<SecondPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Second Page"),
+          title: Text(""),
           actions: <Widget>[
             Padding(
                 padding: EdgeInsets.only(right: 20.0),
@@ -72,31 +73,32 @@ class _SecondPageState extends State<SecondPage> {
               children: <Widget>[
                 Container(
                   child: Card(
+                      color: Colors.amber,
                       child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                        child: Text(
-                          widget.stdListAll[widget.index]['id'],
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      Container(
-                        child: Text(
-                          widget.stdList['name'],
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                        child: Text(
-                          widget.stdList['score'],
-                          style: TextStyle(fontSize: 70),
-                        ),
-                      ),
-                    ],
-                  )),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                            child: Text(
+                              widget.stdListAll[widget.index]['id'],
+                              style: TextStyle(fontSize: 30),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              widget.stdList['name'],
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                            child: Text(
+                              widget.stdList['score'],
+                              style: TextStyle(fontSize: 70),
+                            ),
+                          ),
+                        ],
+                      )),
                 ),
                 Container(
                   child: Column(children: <Widget>[
@@ -105,7 +107,23 @@ class _SecondPageState extends State<SecondPage> {
                         height: 70,
                       ),
                       child: RaisedButton(
-                        onPressed: () => nextStudent(),
+                        onPressed: () => {
+                          if (topScore)
+                            {
+                              Fluttertoast.showToast(
+                                  msg: widget.stdListSorted[indexNextStudent]
+                                              ['name']
+                                          .toString() +
+                                      ' is Top!',
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0)
+                            }
+                          else
+                            {nextStudent()}
+                        },
                         child: Text(
                           "Next Student >",
                           style: TextStyle(fontSize: 50),

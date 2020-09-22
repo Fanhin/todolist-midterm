@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/config/routes.dart';
-import 'package:todolist/home_page.dart';
+
 import 'package:todolist/edit_page.dart';
-import 'package:todolist/second_page.dart';
 
 import 'home_pageV2.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -16,13 +14,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
       theme: ThemeData(
-        appBarTheme: AppBarTheme(color: Colors.grey)
-        
-      ),
+          appBarTheme: AppBarTheme(color: Colors.grey),
+          fontFamily: 'FredokaOne',
+          textTheme: TextTheme(bodyText2: TextStyle(color: Colors.black))),
       routes: {
         Routes.edit_page: (context) => EditPage(),
-        
-
       },
     );
   }
