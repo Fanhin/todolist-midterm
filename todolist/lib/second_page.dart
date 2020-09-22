@@ -51,9 +51,16 @@ class _SecondPageState extends State<SecondPage> {
             Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EditPage(stdList: widget.stdList,)));
+                  onTap: () async {
+                    final Map result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditPage(
+                                  stdList: widget.stdList,
+                                )));
+                    if (result != null) {
+                      Navigator.pop((context), result);
+                    }
                   },
                   child: Icon(Icons.edit),
                 ))

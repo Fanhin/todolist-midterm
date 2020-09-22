@@ -13,6 +13,8 @@ class _EditPageState extends State<EditPage> {
   String inputScore;
   String studentName;
   bool _validate = false;
+  bool editflag = true;
+  String showName;
   TextEditingController _nameTextFieldController;
 
   @override
@@ -20,6 +22,7 @@ class _EditPageState extends State<EditPage> {
     _nameTextFieldController = TextEditingController();
     if (widget.stdList != null) {
       inputScore = widget.stdList['score'];
+      showName = widget.stdList['name'];
     } else
       inputScore = '0';
     super.initState();
@@ -36,10 +39,10 @@ class _EditPageState extends State<EditPage> {
   }
 
   Widget showEditData() {
-    if (widget.stdList['name'] != null) {
-      _nameTextFieldController.text = widget.stdList['name'];
+    if (widget.stdList['name'] == showName && editflag) {
+      _nameTextFieldController.text = showName;
+      editflag = false;
     }
-
     return TextFormField(
       controller: _nameTextFieldController,
       decoration: InputDecoration(
@@ -85,6 +88,8 @@ class _EditPageState extends State<EditPage> {
                                   alignment: Alignment.center,
                                   child: RaisedButton(
                                       onPressed: () {
+                                        _nameTextFieldController.text =
+                                            widget.stdList['name'];
                                         setScore('7');
                                       },
                                       child: Container(

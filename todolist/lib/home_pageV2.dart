@@ -10,10 +10,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Map> stdList = [
-    {"id":"1","name": "JJ", "score": "80"},
-    {"id":"2","name": "Poon", "score": "77"},
-    {"id":"3","name": "Geng", "score": "85"},
-    {"id":"4","name": "John", "score": "60"},
+    {"id": "1", "name": "JJ", "score": "80"},
+    {"id": "2", "name": "Poon", "score": "77"},
+    {"id": "3", "name": "Geng", "score": "85"},
+    {"id": "4", "name": "John", "score": "60"},
   ];
 
   @override
@@ -36,12 +36,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemCount: stdList.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
+                          onTap: () async {
+                            final Map result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        SecondPage(stdList[index], index,stdList)));
+                                    builder: (context) => SecondPage(
+                                        stdList[index], index, stdList)));
+                            setState(() {
+                              stdList[index]['name'] = result['name'];
+                              stdList[index]['score'] = result['score'];
+                              print(result);
+                            });
                           },
                           child: Container(
                             height: 90,
@@ -58,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   children: <Widget>[
                                     Container(
                                       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                      child: Text((index+1).toString()),
+                                      child: Text((index + 1).toString()),
                                     ),
                                     Container(
                                       child: Text(
