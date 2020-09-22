@@ -20,7 +20,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.grey[900],
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: AppBar(
@@ -41,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     child: ListView.builder(
                       itemCount: stdList.length,
+                      scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () async {
@@ -86,18 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                       margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                       child: Text(
                                         'ID :' + (index + 1).toString(),
+                                        style: TextStyle(fontSize: 15),
                                       ),
                                     ),
                                     Container(
                                         child: Text(
                                       '${stdList[index]['name']}',
-                                      style: TextStyle(fontSize: 15),
+                                      style: TextStyle(fontSize: 25),
                                     )),
                                     Container(
                                       margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                       child: Text(
                                         '${stdList[index]['score']}',
-                                        style: TextStyle(fontSize: 30),
+                                        style: TextStyle(fontSize: 35),
                                       ),
                                     ),
                                   ],
@@ -122,8 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //Navigator.pushNamed(context, Routes.edit_page);
           if (data != null) {
             setState(() {
-              stdList.add({'name': data['name'], 'score': data['score']});
-              print({'name': data['name'], 'score': data['score']});
+              stdList.add({'id':(data.length+1).toString(),'name': data['name'], 'score': data['score']});
             });
           }
         },

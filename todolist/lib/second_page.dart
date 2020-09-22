@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,6 +24,23 @@ class SecondPage extends StatefulWidget {
 class _SecondPageState extends State<SecondPage> {
   int indexNextStudent;
   bool topScore;
+  List colors = [
+    Colors.amber,
+    Colors.blue,
+    Colors.yellow,
+    Colors.deepOrange,
+    Colors.green,
+    Colors.purpleAccent,
+    Colors.pinkAccent,
+  ];
+  Random randomColor = Random();
+
+  int intColor = 0;
+
+  //  void changeIndex() {
+  //   setState(() => intColor = randomColor.nextInt(3));
+  //}
+
   @override
   void initState() {
     topScore = false;
@@ -73,14 +92,16 @@ class _SecondPageState extends State<SecondPage> {
               children: <Widget>[
                 Container(
                   child: Card(
-                      color: Colors.amber,
+                      color: Colors.primaries[randomColor.nextInt(255) %
+                              Colors.primaries.length]
+                          .withOpacity(0.6),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
                             child: Text(
-                              widget.stdListAll[widget.index]['id'],
+                              'ID:' + widget.stdListAll[widget.index]['id'],
                               style: TextStyle(fontSize: 30),
                             ),
                           ),
@@ -106,58 +127,71 @@ class _SecondPageState extends State<SecondPage> {
                       constraints: BoxConstraints.expand(
                         height: 70,
                       ),
-                      child: RaisedButton(
-                        onPressed: () => {
-                          if (topScore)
-                            {
-                              Fluttertoast.showToast(
-                                  msg: widget.stdListSorted[indexNextStudent]
-                                              ['name']
-                                          .toString() +
-                                      ' is Top!',
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0)
-                            }
-                          else
-                            {nextStudent()}
-                        },
-                        child: Text(
-                          "Next Student >",
-                          style: TextStyle(fontSize: 50),
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          onPressed: () => {
+                            if (topScore)
+                              {
+                                Fluttertoast.showToast(
+                                    msg: widget.stdListSorted[indexNextStudent]
+                                                ['name']
+                                            .toString() +
+                                        ' is Top!',
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0)
+                              }
+                            else
+                              {nextStudent()}
+                          },
+                          child: Text(
+                            "Next Student >",
+                            style: TextStyle(fontSize: 30),
+                          ),
                         ),
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 10, 0, 30),
                       child: Card(
+                          color: Colors.primaries[randomColor.nextInt(255) %
+                                  Colors.primaries.length]
+                              .withOpacity(0.8),
                           child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                            child: Text(
-                              widget.stdListSorted[indexNextStudent]['id'],
-                              style: TextStyle(fontSize: 30),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              widget.stdListSorted[indexNextStudent]['name'],
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                            child: Text(
-                              widget.stdListSorted[indexNextStudent]['score'],
-                              style: TextStyle(fontSize: 70),
-                            ),
-                          ),
-                        ],
-                      )),
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                child: Text(
+                                  'ID:' +
+                                      widget.stdListSorted[indexNextStudent]
+                                          ['id'],
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  widget.stdListSorted[indexNextStudent]
+                                      ['name'],
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                                child: Text(
+                                  widget.stdListSorted[indexNextStudent]
+                                      ['score'],
+                                  style: TextStyle(fontSize: 70),
+                                ),
+                              ),
+                            ],
+                          )),
                     ),
                   ]),
                 )

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
       theme: ThemeData(
-          appBarTheme: AppBarTheme(color: Colors.grey),
+          appBarTheme: AppBarTheme(color: Colors.black),
           fontFamily: 'FredokaOne',
           textTheme: TextTheme(bodyText2: TextStyle(color: Colors.black))),
       routes: {

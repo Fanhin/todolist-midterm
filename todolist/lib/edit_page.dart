@@ -46,8 +46,12 @@ class _EditPageState extends State<EditPage> {
       }
     }
     return TextFormField(
+      
       controller: _nameTextFieldController,
       decoration: InputDecoration(
+        labelText: 'Enter Name',
+        border: OutlineInputBorder(),
+        suffixIcon: Icon(Icons.error),
         errorText: _validate ? 'Value Can\'t Be Empty' : null,
         icon: Text(
           "Name",
@@ -90,8 +94,7 @@ class _EditPageState extends State<EditPage> {
                                   alignment: Alignment.center,
                                   child: RaisedButton(
                                       onPressed: () {
-                                        _nameTextFieldController.text =
-                                            widget.stdList['name'];
+                                        
                                         setScore('7');
                                       },
                                       child: Container(
